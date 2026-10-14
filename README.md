@@ -17,4 +17,4 @@ A currency conversion web application built with Django, PostgreSQL, and Docker.
 - **Infrastructure:** Docker, docker-compose
 - **External API:** apilayer.com (Currency Data API)
 
-## Project Structure
+
