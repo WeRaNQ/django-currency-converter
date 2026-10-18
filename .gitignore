@@ -1,0 +1,29 @@
+
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+env/
+.venv/
+
+# Django
+*.sqlite3
+staticfiles/
+media/
+
+# Env
+mysite/.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+pgdata/
