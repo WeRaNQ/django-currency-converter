@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Currency exchanger{% endblock %}</title>
+</head>
+<body>
+    <div class="header">
+        <a href="{% url 'index' %}" class="logo">Currency exchanger</a>
+        {% if user.is_authenticated %}
+            <div class="header-right">
+                <a href="#">{{ user.nickname }}</a>
+                <a href="{% url 'logout' %}">Log Out</a>
+            </div>
+        {% else %}
+            <div class="header-right">
+                <a href="{% url 'login' %}">Log In</a>
+                <a href="{% url 'register' %}">Register</a>
+            </div>
+        {% endif %}
+    </div>
+    <div>{% block content %}{% endblock content %}</div>
+</body>
+</html>
