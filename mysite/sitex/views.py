@@ -40,3 +40,8 @@ def login_page(request):
             else:
                 return redirect("/")
     return render(request,"login.html",context)
+
+def home_page(request):
+    if request.user.is_authenticated:
+        return render(request, 'main.html', {'name': request.user.nickname})
+    return render(request, 'main.html')
