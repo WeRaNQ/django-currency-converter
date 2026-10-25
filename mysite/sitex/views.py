@@ -2,10 +2,13 @@ from django.shortcuts import render,redirect
 from .forms import RegisterForm, LoginForm
 from django.contrib.auth import authenticate, login
 from django.utils.http import url_has_allowed_host_and_scheme
-from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.conf import settings
+from .forms import ConvertForm
+from .models import UserLastCurrency
+import requests
 
 
 
@@ -48,9 +51,38 @@ def login_page(request):
     return render(request,"login.html",context)
 
 def home_page(request):
-    if request.user == AnonymousUser():
+    if not request.user.is_authenticated:
         return render(request, 'main.html')
-    return render(request, 'main.html', {'name': request.user.nickname})
+
+    form = ConvertForm(request.POST or None)
+    context = {'form': form, 'name': request.user.nickname}
+
+    if form.is_valid():
+        currency1 = request.POST.get('fcurrency')
+        currency2 = request.POST.get('scurrency')
+        amount = request.POST.get('amount')
+
+        if int(amount) > 0:
+            url = f"https://api.apilayer.com/currency_data/convert?to={currency2}&from={currency1}&amount={amount}"
+            headers = {"apikey": settings.API_KEY}
+            response = requests.get(url, headers=headers).json()
+
+            if 'result' in response:
+                result = response['result']
+                context['result'] = result
+
+                UserLastCurrency.objects.update_or_create(
+                    user_id=request.user.id,
+                    defaults={
+                        'currencyfrom': currency1,
+                        'currencyto': currency2,
+                        'amount': amount,
+                    }
+                )
+
+    return render(request, 'main.html', context)
+
+
 
 @login_required
 def profile_page(request):
@@ -59,6 +91,13 @@ def profile_page(request):
         'email': request.user.email,
         'role': request.user.role,
     }
+    try:
+        info = UserLastCurrency.objects.get(user=request.user)
+        context['fcurrency'] = info.currencyfrom
+        context['tcurrency'] = info.currencyto
+        context['amount'] = info.amount
+    except UserLastCurrency.DoesNotExist:
+        pass
     return render(request, 'profile.html', context)
 
 def logout_page(request):

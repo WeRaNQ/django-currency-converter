@@ -1,10 +1,8 @@
-
 .profile-container {
     max-width: 520px;
     margin: 60px auto;
     padding: 0 20px;
 }
-
 
 .profile-card {
     background: #ffffff;
@@ -12,21 +10,6 @@
     padding: 40px 32px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
-
-.profile-card h1 {
-    font-size: 26px;
-    margin-bottom: 8px;
-    text-align: center;
-    color: #111827;
-}
-
-.profile-card .subtitle {
-    text-align: center;
-    color: #6b7280;
-    font-size: 14px;
-    margin-bottom: 28px;
-}
-
 
 .profile-avatar {
     width: 80px;
@@ -43,6 +26,19 @@
     text-transform: uppercase;
 }
 
+.profile-card h1 {
+    font-size: 26px;
+    margin-bottom: 8px;
+    text-align: center;
+    color: #111827;
+}
+
+.profile-card .subtitle {
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 28px;
+}
 
 .profile-info {
     margin-top: 20px;
@@ -71,7 +67,6 @@
     color: #111827;
     font-weight: 600;
 }
-
 
 .profile-last {
     margin-top: 24px;

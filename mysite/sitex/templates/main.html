@@ -7,11 +7,51 @@
 <div class="main-container">
     <div class="main-card">
         {% if user.is_authenticated %}
-            <h1>Welcome, {{ name }} ! </h1>
-            <p class="subtitle">You're logged in to Currency Exchanger.</p>
-        {% else %}
             <h1>Currency Exchanger</h1>
-            <p class="subtitle">To access the currency exchange, you must register or log in.</p>
+
+            <form method="POST" class="convert-form">
+                {% csrf_token %}
+
+                <div class="field">
+                    <label for="fcurrency">From</label>
+                    <select name="fcurrency" id="fcurrency">
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="RUB">RUB</option>
+                        <option value="BYN">BYN</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="scurrency">To</label>
+                    <select name="scurrency" id="scurrency">
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="RUB">RUB</option>
+                        <option value="BYN">BYN</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="amount">Amount</label>
+                    <input type="number" name="amount" id="amount" min="1" placeholder="10">
+                </div>
+
+                <button type="submit">Calculate</button>
+            </form>
+
+            {% if result %}
+                <div class="result-box">
+                    <div class="result-label">Result</div>
+                    <div class="result-value">{{ result }}</div>
+                </div>
+            {% endif %}
+
+        {% else %}
+            <div class="auth-prompt">
+                <h2>Currency Exchanger</h2>
+                <p>To access the currency exchange, you must <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register' %}">register</a>.</p>
+            </div>
         {% endif %}
     </div>
 </div>

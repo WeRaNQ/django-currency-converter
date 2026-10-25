@@ -30,6 +30,7 @@ if not SECRET_KEY:
     raise ValueError("SECRET_KEY is not set in environment")
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
+API_KEY = os.environ.get("API_KEY")
 
 ALLOWED_HOSTS = []
 
