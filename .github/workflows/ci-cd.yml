@@ -1,9 +1,8 @@
-name: CI
+name: CI/CD
 
 on:
   push:
     branches: [ main ]
-  pull_request:
 
 jobs:
   test:
@@ -48,3 +47,16 @@ jobs:
         run: |
           python manage.py migrate
           python manage.py test
+
+  deploy:
+    needs: test
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy
+        run: |
+          cd /Users/werq/Вуз/Labs/ОБСП/Labs/django-currency-converter/mysite
+          docker compose down
+          docker compose up -d --build
