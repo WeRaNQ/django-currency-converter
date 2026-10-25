@@ -3,6 +3,9 @@ from .forms import RegisterForm, LoginForm
 from django.contrib.auth import authenticate, login
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 
@@ -37,11 +40,30 @@ def login_page(request):
                 pass
             if url_has_allowed_host_and_scheme(redirect_path, request.get_host()):
                 return redirect(redirect_path)
+
             else:
-                return redirect("/")
+                return redirect('/')
+        else:
+            messages.error(request, "Неверный email или пароль")
     return render(request,"login.html",context)
 
 def home_page(request):
-    if request.user.is_authenticated:
-        return render(request, 'main.html', {'name': request.user.nickname})
-    return render(request, 'main.html')
+    if request.user == AnonymousUser():
+        return render(request, 'main.html')
+    return render(request, 'main.html', {'name': request.user.nickname})
+
+@login_required
+def profile_page(request):
+    context = {
+        'name': request.user.nickname,
+        'email': request.user.email,
+        'role': request.user.role,
+    }
+    return render(request, 'profile.html', context)
+
+def logout_page(request):
+    logout(request)
+    return redirect('/')
+
+
+

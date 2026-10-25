@@ -1,0 +1,31 @@
+.main-container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.main-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 48px 32px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.main-card h1 {
+    font-size: 28px;
+    margin-bottom: 12px;
+    color: #111827;
+}
+
+.main-card .subtitle {
+    font-size: 16px;
+    color: #6b7280;
+    margin-bottom: 24px;
+}
+
+.main-card .welcome {
+    font-size: 18px;
+    color: #10b981;
+    font-weight: 600;
+}

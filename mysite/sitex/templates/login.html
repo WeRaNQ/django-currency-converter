@@ -1,18 +1,31 @@
+{% extends "home.html" %}
+{% load static %}
 
 {% block content %}
-<title>login</title>
+<link rel="stylesheet" href="{% static 'login/style.css' %}">
 
-<body>
-    <h1>Login</h1>
-    <form method="POST"> {% csrf_token %}
-        <div class="container">
+
+
+<div class="login-container">
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+    <div class="login-card">
+        <h1>Login</h1>
+        <form method="POST">
+            {% csrf_token %}
             {{ form }}
-            <button type="submit" class="logbtn">Submit</button>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="login-signin">
+            Don't have an account? <a href="{% url 'register' %}">Register</a>
         </div>
-        <div class="container signin">
-            <p>Don't have an account? <a href="{% url 'register' %}">Register</a>.</p>
-        </div>
-    </form>
-</body>
-
+    </div>
+</div>
 {% endblock content %}

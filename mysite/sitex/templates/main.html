@@ -1,0 +1,18 @@
+{% extends "home.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'main/style.css' %}">
+
+<div class="main-container">
+    <div class="main-card">
+        {% if user.is_authenticated %}
+            <h1>Welcome, {{ name }} ! </h1>
+            <p class="subtitle">You're logged in to Currency Exchanger.</p>
+        {% else %}
+            <h1>Currency Exchanger</h1>
+            <p class="subtitle">To access the currency exchange, you must register or log in.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
