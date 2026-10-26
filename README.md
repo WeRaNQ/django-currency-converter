@@ -25,15 +25,15 @@ A currency conversion web application built with Django, PostgreSQL, and Docker.
 
 ```
 django-currency-converter/
-├── .github/workflows/ci.yml    # CI/CD pipeline
+├── .github/workflows/ci.yml 
 ├── mysite/
 │   ├── manage.py
 │   ├── Dockerfile
 │   ├── docker-compose.yml
 │   ├── requirements.txt
 │   ├── .env.example
-│   ├── mysite/                 # Django settings
-│   └── sitex/                  # app: models, forms, views, templates, static, tests
+│   ├── mysite/               
+│   └── sitex/                  
 └── README.md
 ```
 
